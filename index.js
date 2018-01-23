@@ -20,14 +20,8 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 // var sp = new SerialPort(port);
 
 
-const data = [{
-    pin: 14,
-    frequency: 392
-}, {
-    pin: 15,
-    frequency: 440
-}]
 
+const datas = require('./captors-config.json');
 
 var playing = false;
 var stopping = false;
@@ -218,13 +212,13 @@ function playSoundWithFrequency(pin, frequency, volume = 1) {
 }
 
 function getData(pin) {
-    let foundItem = data.find(item => item.pin === pin);
+    let foundItem = datas.find(item => item.pin === pin);
     return foundItem;
 }
 
 function setData(pin, property, value) {
-    let index = data.findIndex(item => item.pin === pin);
-    data[index][property] = value;
+    let index = datas.findIndex(item => item.pin === pin);
+    datas[index][property] = value;
 }
 
 function getVolume(value) {
