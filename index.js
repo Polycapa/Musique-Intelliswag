@@ -1,6 +1,5 @@
 var baudio = require('baudio');
 var SerialPort = require("serialport");
-var player = require('play-sound')(opts = {})
 const request = require('request');
 const Readline = SerialPort.parsers.Readline;
 const parser = new Readline();
@@ -9,8 +8,6 @@ const apiUrl = 'http://localhost:8080/rest';
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
-const autoMode = false
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -28,7 +25,7 @@ const datas = require('./captors-config.json');
 var playing = false;
 var stopping = false;
 
-const playLimit = 100;
+const playLimit = 250;
 const maxInputValue = 900;
 const stopAtXLimit = 1;
 var endCount = 0;
@@ -45,18 +42,17 @@ smallArduinoSP.on("data", handleData);
 megaArduinoSP.pipe(parser);
 megaArduinoSP.on("data", handleData);
 
-setInterval(function () {
-    let max = 900;
-    let min = 0;
-    let value = Math.floor(Math.random() * (max - min + 1)) + min;
-    let pin = Math.floor(Math.random() * (15 - 14 + 1)) + 14;
-    handleData(`!${pin}-${value}?`);
-}, 500);
+// setInterval(function () {
+//     let max = 900;
+//     let min = 0;
+//     let value = Math.floor(Math.random() * (max - min + 1)) + min;
+//     let pin = Math.floor(Math.random() * (15 - 14 + 1)) + 14;
+//     handleData(`!${pin}-${value}?`);
+// }, 500);
 
 app.post('/', (req, res) => {
     let pin = Number(req.query.pin);
     let value = Number(req.query.value);
-    console.log(pin, value);
     if (pin && value) {
         let item = getData(pin);
         if (item) {
@@ -128,6 +124,7 @@ function handleData(data) {
     if (!item) {
         return;
     }
+    // console.log(pin, value);
 
     request.put({
             url: `${apiUrl}/items/PressionCaptor${pin}/state`,
@@ -151,7 +148,7 @@ function handleValueChange(item, pin, value) {
 function handlePlayFrequency(item, pin, frequency, value) {
     if (item && value > playLimit) {
         item.endCount = 0;
-        playSoundWithFrequency(pin, frequency, getVolume(value));
+        playSoundWithFrequency(pin, frequency);
     } else {
         item.endCount++;
         if (item.endCount >= stopAtXLimit) {
@@ -207,9 +204,7 @@ function playSoundWithFrequency(pin, frequency, volume = 1) {
     data.b.play({
         'v': volume
     });
-    // player.play('./c2.mp3', function (err) {
-    //     if (err) throw err
-    // })
+
     data.playing = true;
     data.stopping = false;
     console.log(`play ${frequency} on ${pin}`);
