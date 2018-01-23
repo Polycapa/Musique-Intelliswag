@@ -1,0 +1,10 @@
+sitemap default label="Default Pression"
+{
+    Frame label="Pression captors" {
+        Group item=PressionCaptors label="Values"
+    }
+    Frame label="Notes" {
+        Selection item=PressionCaptorNote15 mappings=[DO=DO, RE=RE, MI=MI, FA=FA, SOL=SOL, LA=LA, SI=SI]
+        Selection item=PressionCaptorNote14 mappings=[DO=DO, RE=RE, MI=MI, FA=FA, SOL=SOL, LA=LA, SI=SI]
+    }
+}

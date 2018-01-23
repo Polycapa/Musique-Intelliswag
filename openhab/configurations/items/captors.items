@@ -1,0 +1,8 @@
+Group PressionCaptors
+Number PressionCaptor15 "Captor 15 [%d]" (PressionCaptors)
+Number PressionCaptor14 "Captor 14 [%d]" (PressionCaptors)
+Number PressionCaptor16 "Captor 16 [%d]" (PressionCaptors)
+
+Group PressionCaptorsNote
+String PressionCaptorNote15 "Captor 15 [%s]" (PressionCaptorsNote)
+String PressionCaptorNote14 "Captor 14 [%s]" (PressionCaptorsNote)

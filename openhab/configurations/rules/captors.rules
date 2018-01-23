@@ -1,0 +1,26 @@
+rule "sendCaptorValueToPi"
+when
+        Item PressionCaptors received update
+    then
+        Thread::sleep(200)
+        val item = PressionCaptors.members.filter[d | d.lastUpdate!=null].sortBy[lastUpdate("mapdb")].last
+        if (item!=null) {
+            var itemNameIsCorrect = item.name.toString.indexOf("PressionCaptor") == 0
+            if (itemNameIsCorrect) {
+                var pin = item.name.toString.substring(14)                
+                var value = item.state.toString
+                var note = transform("MAP", "captor_notes.map", pin)
+                PressionCaptorsNote.members.forEach[d | 
+                    var noteNameIsCorrect = d.name.toString.indexOf("PressionCaptorNote") == 0
+                    if (noteNameIsCorrect) {
+                        var notePin = d.name.toString.substring(18)
+                        if (notePin == pin && d.state.toString != "Uninitialized") {
+                            note = d.state.toString
+                        }   
+                    }
+                ]
+                var noteFrequency = transform("MAP", "notes_frequency.map", note)
+                var output = sendHttpPostRequest("http://localhost:3000/frequency?pin="+pin+"&frequency="+noteFrequency+"&value="+value)                
+            }
+        }
+end

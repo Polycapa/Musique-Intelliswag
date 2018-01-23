@@ -1,0 +1,8 @@
+Strategies {
+    default = everyChange
+}
+
+Items {
+    PressionCaptors* : strategy = everyChange, everyUpdate, restoreOnStartup
+    PressionCaptorsNote* : strategy = everyChange, everyUpdate, restoreOnStartup
+}
