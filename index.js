@@ -16,10 +16,12 @@ app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
-// const port = '/dev/ttyACM0';
-// var sp = new SerialPort(port);
 
+const smallArduinoPort = '/dev/ttyACM0';
+var smallArduinoSP = new SerialPort(smallArduinoPort);
 
+const megaArduinoPort = '/dev/ttyACM1';
+var megaArduinoSP = new SerialPort(megaArduinoPort);
 
 const datas = require('./captors-config.json');
 
@@ -38,8 +40,10 @@ var readedDataStopCharFound = false;
 var currentReadedData = '';
 
 
-// sp.pipe(parser);
-// sp.on("data", handleData);
+smallArduinoSP.pipe(parser);
+smallArduinoSP.on("data", handleData);
+megaArduinoSP.pipe(parser);
+megaArduinoSP.on("data", handleData);
 
 setInterval(function () {
     let max = 900;
