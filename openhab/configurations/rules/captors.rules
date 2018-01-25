@@ -9,7 +9,7 @@ when
             if (itemNameIsCorrect) {
                 var pin = item.name.toString.substring(14)                
                 var value = item.state.toString
-                var note = transform("MAP", "captor_notes.map", pin)
+                var note = "LA_OCTAVE3"
                 PressionCaptorsNote.members.forEach[d | 
                     var noteNameIsCorrect = d.name.toString.indexOf("PressionCaptorNote") == 0
                     if (noteNameIsCorrect) {
