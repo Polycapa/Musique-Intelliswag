@@ -4,4 +4,64 @@
 }, {
     "pin": 15,
     "frequency": 392
+}, {
+    "pin": 16,
+    "frequency": 392
+}, {
+    "pin": 17,
+    "frequency": 392
+}, {
+    "pin": 18,
+    "frequency": 392
+}, {
+    "pin": 19,
+    "frequency": 392
+}, {
+    "pin": 54,
+    "frequency": 392
+}, {
+    "pin": 55,
+    "frequency": 392
+}, {
+    "pin": 56,
+    "frequency": 392
+}, {
+    "pin": 57,
+    "frequency": 392
+}, {
+    "pin": 58,
+    "frequency": 392
+}, {
+    "pin": 59,
+    "frequency": 392
+}, {
+    "pin": 60,
+    "frequency": 392
+}, {
+    "pin": 61,
+    "frequency": 392
+}, {
+    "pin": 62,
+    "frequency": 392
+}, {
+    "pin": 63,
+    "frequency": 392
+}, {
+    "pin": 64,
+    "frequency": 392
+}, {
+    "pin": 65,
+    "frequency": 392
+}, {
+    "pin": 66,
+    "frequency": 392
+}, {
+    "pin": 67,
+    "frequency": 392
+}, {
+    "pin": 68,
+    "frequency": 392
+}, {
+    "pin": 69,
+    "frequency": 392
 }]
