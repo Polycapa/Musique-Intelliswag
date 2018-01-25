@@ -66,7 +66,6 @@ app.post('/frequency', (req, res) => {
     let pin = Number(req.query.pin);
     let frequency = Number(req.query.frequency);
     let value = Number(req.query.value);
-    console.log(pin, frequency, value);
     if (pin && frequency && value !== undefined) {
         let item = getData(pin);
         if (item) {
@@ -86,7 +85,7 @@ app.post('/stop', (req, res) => {
 
 
 app.listen(3000, () => {
-    console.log('App listening on port 3000!');
+    datedLog('App listening on port 3000!')
 });
 
 function handleData(data) {
@@ -124,7 +123,6 @@ function handleData(data) {
     if (!item) {
         return;
     }
-    // console.log(pin, value);
 
     request.put({
             url: `${apiUrl}/items/PressionCaptor${pin}/state`,
@@ -160,7 +158,7 @@ function handlePlayFrequency(item, pin, frequency, value) {
 function stopSound(pin) {
     let data = getData(pin);
     if (data && !data.stopping) {
-        console.log('stop ' + pin);
+        datedLog('stop ' + pin)
         data.b.end();
         data.playing = false;
         data.stopping = true;
@@ -183,12 +181,9 @@ function playSound(pin, volume = 1) {
     data.b.play({
         'v': volume
     });
-    // player.play('./c2.mp3', function (err) {
-    //     if (err) throw err
-    // })
     data.playing = true;
     data.stopping = false;
-    console.log(`play ${frequency} on ${pin}`);
+    datedLog(`play ${frequency} on ${pin}`);
 }
 
 function playSoundWithFrequency(pin, frequency, volume = 1) {
@@ -207,7 +202,7 @@ function playSoundWithFrequency(pin, frequency, volume = 1) {
 
     data.playing = true;
     data.stopping = false;
-    console.log(`play ${frequency} on ${pin}`);
+    datedLog(`play ${frequency} on ${pin}`)
 }
 
 function getData(pin) {
@@ -222,4 +217,9 @@ function setData(pin, property, value) {
 
 function getVolume(value) {
     return value / maxInputValue * 2;
+}
+
+function datedLog(str) {
+    let now = new Date();
+    console.log(`[${now.toLocaleDateString()} ${now.toLocaleTimeString()}] ${str}`)
 }
